@@ -1,4 +1,5 @@
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
+import { DefaultFooter } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
 // import { history } from 'umi';
@@ -56,7 +57,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     // waterMarkProps: {
     //   content: initialState?.currentUser?.name,
     // },
-    footerRender: () => <Footer />,
+    footerRender: () => (
+      <DefaultFooter copyright={`${new Date().getFullYear()} Tools`} links={[]} />
+    ),
     // onPageChange: () => {
     //   const { location } = history;
     //   // 如果没有登录，重定向到 login

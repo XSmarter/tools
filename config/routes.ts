@@ -23,6 +23,11 @@ export default [
         name: '打印',
         component: './work/print',
       },
+      {
+        path: '/work/compare',
+        name: '对比',
+        component: './work/compare',
+      },
     ],
   },
   {

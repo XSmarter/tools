@@ -26,11 +26,28 @@ const Compare = () => {
   };
 
   const getTidsByJSON = (content: string) => {
-    const str = JSON.stringify(content).toString().replace(new RegExp('\\\\"', 'gm'), '"');
+    let str = JSON.stringify(content).toString().replace(new RegExp('\\\\"', 'gm'), '"');
+    str = str.replace(/\\n/g, '');
+    str = str.replace(/\s+/g, '');
     const tidsReg = /(?<=(\"tid\":\")).*?(?=(\"))/g;
     console.log(str);
     console.log(str.match(tidsReg));
-    return str.match(tidsReg);
+    let tids = str.match(tidsReg);
+    if (!tids) {
+      const tidsArrReg = /(?<=(\"tid\":\[)).*?(?=(\]))/g;
+      console.log(str.match(tidsArrReg));
+
+      const tidarr = str.match(tidsArrReg);
+      const temparr: string[] = [];
+
+      if (tidarr && tidarr.length) {
+        tidarr.map((item) => {
+          temparr.push(...item.split(','));
+        });
+      }
+      tids = temparr;
+    }
+    return tids;
   };
 
   const getTidsByStr = (content: string) => {

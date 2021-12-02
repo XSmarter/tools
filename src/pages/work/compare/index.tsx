@@ -93,8 +93,12 @@ const Compare = () => {
       </Card>
       {compareResult1.length || compareResult2.length || isShowResult ? (
         <Card title="对比结果">
-          <div>文本内容1的差异订单号：{compareResult1.join(',')}</div>
-          <div>文本内容2的差异订单号：{compareResult2.join(',')}</div>
+          <div style={{ wordWrap: 'break-word' }}>
+            文本内容1的差异订单号：{compareResult1.join(',')}
+          </div>
+          <div style={{ wordWrap: 'break-word' }}>
+            文本内容2的差异订单号：{compareResult2.join(',')}
+          </div>
         </Card>
       ) : undefined}
     </PageContainer>

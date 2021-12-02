@@ -42,7 +42,8 @@ const Compare = () => {
 
       if (tidarr && tidarr.length) {
         tidarr.map((item) => {
-          temparr.push(...item.split(','));
+          const tempItem = item.replace(/\"/g, '');
+          temparr.push(...tempItem.split(','));
         });
       }
       tids = temparr;

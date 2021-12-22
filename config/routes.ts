@@ -28,6 +28,11 @@ export default [
         name: '对比',
         component: './work/compare',
       },
+      {
+        path: '/work/duty',
+        name: '值班',
+        component: './work/duty',
+      },
     ],
   },
   {

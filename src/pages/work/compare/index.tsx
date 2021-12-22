@@ -26,9 +26,8 @@ const Compare = () => {
   };
 
   const getTidsByJSON = (content: string) => {
-    let str = JSON.stringify(content).toString().replace(new RegExp('\\\\"', 'gm'), '"');
-    str = str.replace(/\\n/g, '');
-    str = str.replace(/\s+/g, '');
+    let str = JSON.stringify(content).replace(new RegExp('\\\\"', 'gm'), '"');
+    str = str.replace(/[\r\n\s+]/g, '');
     const tidsReg = /(?<=(\"tid\":\")).*?(?=(\"))/g;
     console.log(str);
     console.log(str.match(tidsReg));

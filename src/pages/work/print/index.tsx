@@ -8,6 +8,10 @@ const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 6 },
 };
+const textAreaLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
+};
 const tailLayout = {
   wrapperCol: { offset: 4, span: 6 },
 };
@@ -151,15 +155,16 @@ const WorkPrint = () => {
       setCnPrintComponentVisible(true);
     }
 
-    const waybillJSON = JSON.parse(values.content);
+    const request = JSON.parse(values.content);
 
-    waybillJSON.task.taskID = getUUID(8, 16);
+    request.task.taskID = getUUID(8, 16);
 
     if (values.printer) {
-      waybillJSON.task.printer = values.printer;
+      request.task.printer = values.printer;
     }
-
-    websocketSend(platCode, values.content);
+    console.log(`发送打印任务时间戳：${new Date().getTime()}`);
+    console.log(JSON.stringify(request));
+    websocketSend(platCode, JSON.stringify(request));
   };
 
   /** 关闭提醒安装打印组件模态层 */
@@ -195,8 +200,8 @@ const WorkPrint = () => {
           <Form.Item name="wsurl" label="WS地址" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="content" label="打印报文">
-            <Input.TextArea autoSize={{ minRows: 5 }} />
+          <Form.Item name="content" label="打印报文" {...textAreaLayout}>
+            <Input.TextArea rows={12} />
           </Form.Item>
           <Form.Item
             noStyle

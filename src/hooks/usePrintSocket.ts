@@ -364,7 +364,12 @@ const usePrintSocket = () => {
         } else {
           setTimeout(() => {
             Modal.destroyAll();
-            notification.error({ message: '打印失败', description: `失败原因：${cmdData.msg}` });
+
+            const errorMsg = cmdData.msg || cmdData.detail || '未捕获到打印组件错误信息';
+            notification.error({
+              message: '打印失败',
+              description: `失败原因：${errorMsg}`,
+            });
           }, 1000);
         }
       } else if (cmdData.cmd === 'PrintResultNotify') {
@@ -430,9 +435,16 @@ const usePrintSocket = () => {
             }, 1000);
             preventRepeatNotifyPrintResult = false;
           }
-          //  else if (cmdData.taskStatus === 'failed') {
-          //   notification.error({ message: '打印失败' });
-          // }
+        } else if (cmdData.taskStatus === 'failed') {
+          let errorMsg = cmdData.msg || cmdData.detail;
+          if (!errorMsg && cmdData.printStatus && cmdData.printStatus.length) {
+            errorMsg = cmdData.printStatus[0].detail;
+          }
+
+          notification.error({
+            message: '打印失败',
+            description: `失败原因：${errorMsg || '未捕获到打印组件错误信息'}`,
+          });
         }
       } else if (cmdData.cmd === 'notifyPrintResult') {
         //  || cmdData.taskStatus === 'printed'
@@ -500,7 +512,15 @@ const usePrintSocket = () => {
             preventRepeatNotifyPrintResult = false;
           }
         } else if (cmdData.taskStatus === 'failed') {
-          notification.error({ message: '打印失败' });
+          let errorMsg = cmdData.msg || cmdData.detail;
+          if (!errorMsg && cmdData.printStatus && cmdData.printStatus.length) {
+            errorMsg = cmdData.printStatus[0].detail;
+          }
+
+          notification.error({
+            message: '打印失败',
+            description: `失败原因：${errorMsg || '未捕获到打印组件错误信息'}`,
+          });
         }
       }
     };

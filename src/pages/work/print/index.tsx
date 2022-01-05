@@ -1,7 +1,8 @@
+import PrintComponentInstallModal from '@/components/PrintComponentInstallModal';
 import usePrintSocket from '@/hooks/usePrintSocket';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Card, Form, Input, Select, Space } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 
 const layout = {
   labelCol: { span: 4 },
@@ -39,8 +40,21 @@ const platformObj = {
 };
 
 const WorkPrint = () => {
-  const { websocketConnect, websocketSend } = usePrintSocket();
+  const { printComponentMap, websocketConnect, websocketSend } = usePrintSocket();
   const [form] = Form.useForm();
+
+  /** 控制菜鸟组件安装提醒显示/隐藏 */
+  const [cnPrintComponentVisible, setCnPrintComponentVisible] = useState(false);
+
+  /** 控制拼多多组件安装提醒显示/隐藏 */
+  const [pddPrintComponentVisible, setPddPrintComponentVisible] = useState(false);
+
+  /** 控制京东组件安装提醒显示/隐藏 */
+  const [jdPrintComponentVisible, setJdPrintComponentVisible] = useState(false);
+
+  const [dyPrintComponentVisible, setDyPrintComponentVisible] = useState(false);
+
+  const [ksPrintComponentVisible, setKsPrintComponentVisible] = useState(false);
 
   const isHttpsProtocol = document.location.protocol === 'https:';
 
@@ -80,17 +94,93 @@ const WorkPrint = () => {
   };
 
   const onConnect = () => {
-    websocketConnect(form.getFieldValue('platform'), form.getFieldValue('wsurl'));
+    const platCode = form.getFieldValue('platform');
+
+    websocketConnect(platCode, form.getFieldValue('wsurl'));
+  };
+
+  /**
+   * 获取请求的UUID，指定长度和进制
+   * @example
+   * getUUID(8, 2) => "01001010" | getUUID(8, 10) => "47473046" | getUUID(8, 16) => "098F4D35"
+   * @param len 长度
+   * @param radix 进制
+   */
+  const getUUID = (len: number, radix: number): string => {
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+    const uuid = [];
+    let i;
+    const radixTemp = radix || chars.length;
+    if (len) {
+      for (i = 0; i < len; i += 1) uuid[i] = chars[0 | (Math.random() * radixTemp)];
+    } else {
+      let r;
+      // eslint-disable-next-line no-multi-assign
+      uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+      uuid[14] = '4';
+      for (i = 0; i < 36; i + 1) {
+        if (!uuid[i]) {
+          r = 0 | (Math.random() * 16);
+          uuid[i] = chars[i === 19 ? (r & 0x3) | 0x8 : r];
+        }
+      }
+    }
+    return uuid.join('');
   };
 
   const onFinish = (values: any) => {
-    console.log(values);
+    const platCode = form.getFieldValue('platform');
 
-    websocketSend(form.getFieldValue('platform'), values.content);
+    if (!printComponentMap[platCode].status) {
+      if (platCode === 'PDD') {
+        setPddPrintComponentVisible(true);
+        return;
+      }
+      if (platCode === 'JD') {
+        setJdPrintComponentVisible(true);
+        return;
+      }
+      if (platCode === 'DY') {
+        setDyPrintComponentVisible(true);
+        return;
+      }
+      if (platCode === 'KS') {
+        setKsPrintComponentVisible(true);
+        return;
+      }
+      setCnPrintComponentVisible(true);
+    }
+
+    const waybillJSON = JSON.parse(values.content);
+
+    waybillJSON.task.taskID = getUUID(8, 16);
+
+    if (values.printer) {
+      waybillJSON.task.printer = values.printer;
+    }
+
+    websocketSend(platCode, values.content);
+  };
+
+  /** 关闭提醒安装打印组件模态层 */
+  const onPrintComponentInstallModalCancel = () => {
+    setCnPrintComponentVisible(false);
+    setPddPrintComponentVisible(false);
+    setJdPrintComponentVisible(false);
+    setDyPrintComponentVisible(false);
+    setKsPrintComponentVisible(false);
   };
 
   return (
     <PageContainer breadcrumb={undefined}>
+      <PrintComponentInstallModal
+        cnVisible={cnPrintComponentVisible}
+        pddVisible={pddPrintComponentVisible}
+        jdVisible={jdPrintComponentVisible}
+        dyVisible={dyPrintComponentVisible}
+        ksVisible={ksPrintComponentVisible}
+        onCancel={onPrintComponentInstallModalCancel}
+      />
       <Card>
         <Form {...layout} form={form} onFinish={onFinish}>
           <Form.Item name="platform" label="打印组件" rules={[{ required: true }]}>
@@ -106,7 +196,27 @@ const WorkPrint = () => {
             <Input />
           </Form.Item>
           <Form.Item name="content" label="打印报文">
-            <Input.TextArea />
+            <Input.TextArea autoSize={{ minRows: 5 }} />
+          </Form.Item>
+          <Form.Item
+            noStyle
+            shouldUpdate={(prevValues, currentValues) =>
+              prevValues.platform !== currentValues.platform
+            }
+          >
+            {({ getFieldValue }) =>
+              getFieldValue('platform') ? (
+                <Form.Item name="printer" label="选择打印机">
+                  <Select placeholder="选择打印机" allowClear>
+                    {printComponentMap[getFieldValue('platform')].printers.map((printer: any) => (
+                      <Select.Option key={printer.name} value={printer.name}>
+                        {printer.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              ) : null
+            }
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Space>

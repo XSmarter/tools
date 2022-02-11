@@ -4,9 +4,11 @@ import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
-const { REACT_APP_ENV } = process.env;
+const { REACT_APP_ENV, PLATFORM } = process.env;
 export default defineConfig({
   hash: true,
+  publicPath: PLATFORM === 'GITEE' ? '/webtools/' : '/',
+  base: PLATFORM === 'GITEE' ? '/webtools/' : '/',
   antd: {},
   dva: {
     hmr: true,
@@ -22,6 +24,11 @@ export default defineConfig({
   },
   targets: {
     ie: 11,
+  },
+  define: {
+    'process.env': {
+      PLATFORM: process.env.PLATFORM,
+    },
   },
   // umi routes: https://umijs.org/docs/routing
   routes,

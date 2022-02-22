@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Row, Col, Avatar } from 'antd';
+import { Card, Row, Col, Avatar, List } from 'antd';
+import { getNews } from '@/services/news';
+import NewsListContent from './components/NewsListContent';
 
 export default (): React.ReactNode => {
+  const [newsLoading, setNewsLoading] = useState<boolean>(false);
+  const [news, setNews] = useState<any[]>([]);
+
   const platformData = [
     {
       title: '淘宝',
@@ -31,6 +36,22 @@ export default (): React.ReactNode => {
     },
   ];
 
+  const getNewsHandle = () => {
+    setNewsLoading(true);
+    getNews().then((res) => {
+      if (res.code === 200) {
+        setNews(res.newslist || []);
+      } else {
+        setNews([]);
+      }
+      setNewsLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getNewsHandle();
+  }, []);
+
   return (
     <PageContainer>
       <Row gutter={24}>
@@ -47,6 +68,32 @@ export default (): React.ReactNode => {
             </a>
           </Col>
         ))}
+      </Row>
+      <Row>
+        <Col xs={24} sm={12} md={12} lg={12} xl={8}>
+          <Card title="今日头条">
+            <List<any>
+              size="large"
+              loading={newsLoading}
+              rowKey="id"
+              itemLayout="vertical"
+              dataSource={news}
+              renderItem={(item) => (
+                <List.Item key={item.id}>
+                  <List.Item.Meta
+                    style={{ marginBottom: 0 }}
+                    title={
+                      <a href={item.url} target="_blank" rel="noreferrer">
+                        {item.title}
+                      </a>
+                    }
+                  />
+                  <NewsListContent data={item} />
+                </List.Item>
+              )}
+            />
+          </Card>
+        </Col>
       </Row>
     </PageContainer>
   );

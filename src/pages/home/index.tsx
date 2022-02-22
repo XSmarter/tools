@@ -3,6 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Row, Col, Avatar, List } from 'antd';
 import { getNews } from '@/services/news';
 import NewsListContent from './components/NewsListContent';
+import Message from './components/Message';
 
 export default (): React.ReactNode => {
   const [newsLoading, setNewsLoading] = useState<boolean>(false);
@@ -69,8 +70,8 @@ export default (): React.ReactNode => {
           </Col>
         ))}
       </Row>
-      <Row>
-        <Col xs={24} sm={12} md={12} lg={12} xl={8}>
+      <Row gutter={24}>
+        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
           <Card title="今日头条">
             <List<any>
               size="large"
@@ -92,6 +93,11 @@ export default (): React.ReactNode => {
                 </List.Item>
               )}
             />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+          <Card title="留言区">
+            <Message />
           </Card>
         </Col>
       </Row>

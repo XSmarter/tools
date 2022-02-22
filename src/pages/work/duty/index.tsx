@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-layout';
-import { Calendar, Card } from 'antd';
+import { Avatar, Calendar, Card, Tooltip } from 'antd';
 import type { Moment } from 'moment';
 import React from 'react';
 
@@ -21,7 +21,7 @@ const Duty = () => {
       '郑涛',
     ];
 
-    // 11 - 27 韩飞
+    // 02 - 23 韩飞
 
     const wcArr = [
       '韩飞',
@@ -34,23 +34,22 @@ const Duty = () => {
       '孙冰',
       '赵运达',
       '刘尝鹏',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
+      '', // 张飞龙
+      '', // 岳国栋
+      '', // 杨镇源
+      '', // 张道政
+      '', // 厉军
+      '', // 李杨
+      '', // 高帅
+      '', // 张子麟
+      '', // 段昌富
+      '', // 吴涛
+      '', // 赵学省
     ];
 
     const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2021-12-21'), 'days');
 
-    const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2021-11-27'), 'days');
+    const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-02-23'), 'days');
     if (day >= 0) {
       const idx = day % nightArr.length;
 
@@ -58,14 +57,34 @@ const Duty = () => {
 
       if (wcArr[wcIdx]) {
         return (
-          <div>
-            <div>{nightArr[idx]} - 晚上值班</div>
-            <div>{wcArr[wcIdx]} - 打扫厕所</div>
+          <div style={{ textAlign: 'right' }}>
+            <Avatar.Group>
+              <Tooltip title="晚上值班" placement="top">
+                <Avatar size="large" style={{ backgroundColor: '#464646' }}>
+                  {nightArr[idx]}
+                </Avatar>
+              </Tooltip>
+              <Tooltip title="打扫厕所" placement="top">
+                <Avatar size="large" style={{ backgroundColor: '#ffc107' }}>
+                  {wcArr[wcIdx]}
+                </Avatar>
+              </Tooltip>
+            </Avatar.Group>
           </div>
         );
       }
 
-      return <div>{nightArr[idx]} - 晚上值班</div>;
+      return (
+        <div style={{ textAlign: 'right' }}>
+          <Avatar.Group>
+            <Tooltip title="晚上值班" placement="top">
+              <Avatar size="large" style={{ backgroundColor: '#464646' }}>
+                {nightArr[idx]}
+              </Avatar>
+            </Tooltip>
+          </Avatar.Group>
+        </div>
+      );
     }
     return undefined;
   };

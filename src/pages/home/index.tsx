@@ -4,6 +4,7 @@ import { Card, Row, Col, Avatar, List } from 'antd';
 import { getNews } from '@/services/news';
 import NewsListContent from './components/NewsListContent';
 import Message from './components/Message';
+import Valine from 'valine';
 
 export default (): React.ReactNode => {
   const [newsLoading, setNewsLoading] = useState<boolean>(false);
@@ -51,6 +52,13 @@ export default (): React.ReactNode => {
 
   useEffect(() => {
     getNewsHandle();
+
+    new Valine({
+      el: '#vcomments',
+      // other config
+      appId: 'vsB5r15jmHR98cfwla4X1Pkg-gzGzoHsz',
+      appKey: 'oJsbu5ACUik8fabHxo1pbRqa',
+    });
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Row, Col, Avatar } from 'antd';
 import Message from './components/Message';
@@ -33,6 +33,16 @@ export default (): React.ReactNode => {
     },
   ];
 
+  const isMobile = useMemo(() => {
+    const u = navigator.userAgent;
+    return (
+      !!u.match(/AppleWebKit.*Mobile.*/) ||
+      u.indexOf('Android') > -1 ||
+      u.indexOf('Linux') > -1 ||
+      u.indexOf('iPhone') > -1
+    );
+  }, []);
+
   useEffect(() => {
     new Valine({
       el: '#vcomments',
@@ -60,19 +70,25 @@ export default (): React.ReactNode => {
         ))}
       </Row>
       <Row gutter={24}>
-        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-          <Card bodyStyle={{ height: '1011px', overflow: 'hidden', position: 'relative' }}>
+        <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>
+          <Card
+            bodyStyle={{
+              height: isMobile ? '987px' : '1007px',
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+          >
             <iframe
               src="https://juejin.cn/frontend"
               sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
               width="100%"
               height="1200"
               frameBorder="0"
-              style={{ position: 'absolute', top: '-188px', left: '0px' }}
+              style={{ position: 'absolute', top: isMobile ? '-222px' : '-192px', left: '0px' }}
             />
           </Card>
         </Col>
-        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+        <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>
           <Card title="留言区">
             <Message />
           </Card>

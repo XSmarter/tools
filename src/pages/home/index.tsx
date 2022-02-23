@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Row, Col, Avatar, List } from 'antd';
-import { getNews } from '@/services/news';
-import NewsListContent from './components/NewsListContent';
+import { Card, Row, Col, Avatar } from 'antd';
 import Message from './components/Message';
 import Valine from 'valine';
 
 export default (): React.ReactNode => {
-  const [newsLoading, setNewsLoading] = useState<boolean>(false);
-  const [news, setNews] = useState<any[]>([]);
-
   const platformData = [
     {
       title: '淘宝',
@@ -38,21 +33,7 @@ export default (): React.ReactNode => {
     },
   ];
 
-  const getNewsHandle = () => {
-    setNewsLoading(true);
-    getNews().then((res) => {
-      if (res.code === 200) {
-        setNews(res.newslist || []);
-      } else {
-        setNews([]);
-      }
-      setNewsLoading(false);
-    });
-  };
-
   useEffect(() => {
-    getNewsHandle();
-
     new Valine({
       el: '#vcomments',
       // other config
@@ -80,26 +61,14 @@ export default (): React.ReactNode => {
       </Row>
       <Row gutter={24}>
         <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-          <Card title="今日头条">
-            <List<any>
-              size="large"
-              loading={newsLoading}
-              rowKey="id"
-              itemLayout="vertical"
-              dataSource={news}
-              renderItem={(item) => (
-                <List.Item key={item.id}>
-                  <List.Item.Meta
-                    style={{ marginBottom: 0 }}
-                    title={
-                      <a href={item.url} target="_blank" rel="noreferrer">
-                        {item.title}
-                      </a>
-                    }
-                  />
-                  <NewsListContent data={item} />
-                </List.Item>
-              )}
+          <Card bodyStyle={{ height: '1011px', overflow: 'hidden', position: 'relative' }}>
+            <iframe
+              src="https://juejin.cn/frontend"
+              sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+              width="100%"
+              height="1200"
+              frameBorder="0"
+              style={{ position: 'absolute', top: '-188px', left: '0px' }}
             />
           </Card>
         </Col>

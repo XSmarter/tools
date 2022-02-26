@@ -50,6 +50,11 @@ export default [
         name: '压缩图片',
         component: './other/tinyimg',
       },
+      {
+        path: '/other/endecode',
+        name: '信息编码',
+        component: './other/endecode',
+      },
     ],
   },
   { path: '/', redirect: '/home' },

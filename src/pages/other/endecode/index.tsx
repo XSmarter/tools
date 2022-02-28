@@ -134,6 +134,12 @@ const Endecode = () => {
       return;
     }
 
+    if (values.type === 'base64Encode') {
+      const output = btoa(unescape(encodeURIComponent(values.inputValue)));
+      form.setFieldsValue({ outputValue: output });
+      return;
+    }
+
     if (values.type === 'morseDecode') {
       const output = _decode(values.inputValue);
       form.setFieldsValue({ outputValue: output });
@@ -146,6 +152,12 @@ const Endecode = () => {
     }
     if (values.type === 'unicodeDecode') {
       const output = unescape(values.inputValue.replace(/\\u/gi, '%u'));
+      form.setFieldsValue({ outputValue: output });
+      return;
+    }
+
+    if (values.type === 'base64Decode') {
+      const output = decodeURIComponent(escape(atob(values.inputValue)));
       form.setFieldsValue({ outputValue: output });
       return;
     }

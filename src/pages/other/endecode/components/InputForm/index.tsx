@@ -1,4 +1,5 @@
 import type { FormInstance } from 'antd';
+import { Divider } from 'antd';
 import { Button, Form, Input, Radio, Space } from 'antd';
 import type { FC } from 'react';
 import React from 'react';
@@ -29,7 +30,7 @@ const InputForm: FC<InputFormProps> = (props) => {
       <Form
         {...layout}
         form={form}
-        initialValues={{ type: 'morseEncode' }}
+        initialValues={{ type: 'unicodeEncode' }}
         onFinish={onInputFormFinish}
       >
         <Form.Item name="inputValue" rules={[{ required: true }]}>
@@ -41,11 +42,14 @@ const InputForm: FC<InputFormProps> = (props) => {
               <div>
                 <Radio value={'unicodeEncode'}>Unicode编码</Radio>
                 <Radio value={'urlEncode'}>URL编码</Radio>
+                <Radio value={'base64Encode'}>Base64编码</Radio>
                 <Radio value={'morseEncode'}>摩斯密码编码</Radio>
               </div>
+              <Divider style={{ margin: '4px 0' }} />
               <div>
                 <Radio value={'unicodeDecode'}>Unicode解码</Radio>
                 <Radio value={'urlDecode'}>URL解码</Radio>
+                <Radio value={'base64Decode'}>Base64解码</Radio>
                 <Radio value={'morseDecode'}>摩斯密码解码</Radio>
               </div>
             </Space>

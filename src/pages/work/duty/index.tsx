@@ -21,7 +21,7 @@ const Duty = () => {
       '郑涛',
     ];
 
-    // 02 - 23 韩飞
+    // 03 - 14 韩飞
 
     const wcArr = [
       '韩飞',
@@ -37,19 +37,17 @@ const Duty = () => {
       '', // 张飞龙
       '', // 岳国栋
       '', // 杨镇源
-      '', // 张道政
       '', // 厉军
       '', // 李杨
       '', // 高帅
       '', // 张子麟
       '', // 段昌富
       '', // 吴涛
-      '', // 赵学省
     ];
 
     const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2021-12-21'), 'days');
 
-    const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-02-23'), 'days');
+    const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-03-14'), 'days');
     if (day >= 0) {
       const idx = day % nightArr.length;
 

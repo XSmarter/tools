@@ -55,6 +55,11 @@ export default [
         name: '信息编码',
         component: './other/endecode',
       },
+      {
+        path: '/other/json',
+        name: '格式JSON',
+        component: './other/json',
+      },
     ],
   },
   { path: '/', redirect: '/home' },

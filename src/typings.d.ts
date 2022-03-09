@@ -18,6 +18,7 @@ declare module 'react-fittext';
 declare module 'bizcharts-plugin-slider';
 
 declare module 'valine';
+declare module '@uiw/react-codemirror';
 
 // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design Dedicated environment variable, please do not use it in your project.

@@ -6,11 +6,11 @@ import React from 'react';
 
 const layout = {
   labelCol: { span: 4 },
-  wrapperCol: { span: 10 },
+  wrapperCol: { span: 16 },
 };
 
 const tailLayout = {
-  wrapperCol: { offset: 4, span: 6 },
+  wrapperCol: { offset: 6, span: 6 },
 };
 
 interface InputFormProps {

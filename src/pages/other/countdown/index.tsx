@@ -6,8 +6,8 @@ import { PageContainer } from '@ant-design/pro-layout';
 const { Countdown } = Statistic;
 
 const CountDown = () => {
-  const [date, setDate] = useState<string>(() => {
-    return localStorage.getItem('countdown') || '';
+  const [date, setDate] = useState<string | undefined>(() => {
+    return localStorage.getItem('countdown') || undefined;
   });
 
   const onDatePickerChange = (tempDate: any, dateString: string) => {

@@ -60,6 +60,11 @@ export default [
         name: '格式JSON',
         component: './other/json',
       },
+      {
+        path: '/other/countdown',
+        name: '倒计时',
+        component: './other/countdown',
+      },
     ],
   },
   { path: '/', redirect: '/home' },

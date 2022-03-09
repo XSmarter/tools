@@ -19,7 +19,6 @@ export default defineConfig({
     siderWidth: 208,
     ...defaultSettings,
   },
-
   locale: {
     // default zh-CN
     default: 'zh-CN',

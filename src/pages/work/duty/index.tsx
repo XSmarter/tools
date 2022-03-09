@@ -53,7 +53,7 @@ const Duty = () => {
 
       const wcIdx = wcDay % wcArr.length;
 
-      if (wcArr[wcIdx]) {
+      if (wcArr[wcIdx] && wcDay >= 0) {
         return (
           <div style={{ textAlign: 'right' }}>
             <Avatar.Group>

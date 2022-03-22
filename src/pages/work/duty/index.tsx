@@ -45,7 +45,7 @@ const Duty = () => {
       '', // 吴涛
     ];
 
-    const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2021-12-21'), 'days');
+    const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2021-12-22'), 'days');
 
     const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-03-14'), 'days');
     if (day >= 0) {

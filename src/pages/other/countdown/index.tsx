@@ -24,6 +24,7 @@ const CountDown = () => {
             value={moment(date)}
             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
             onChange={onDatePickerChange}
+            placeholder="请输入时间"
           />
           <Countdown title="倒计时" value={date} format="D 天 H 时 m 分 s 秒" />
         </Space>

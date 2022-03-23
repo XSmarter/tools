@@ -14,7 +14,7 @@ const Settings: LayoutSettings & {
   colorWeak: false,
   title: 'Tools',
   pwa: false,
-  logo: 'https://xsmarter.gitee.io/webtools/mco.svg',
+  logo: 'https://tools-teal.vercel.app/mco.svg',
   iconfontUrl: '',
 };
 

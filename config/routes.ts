@@ -65,6 +65,11 @@ export default [
         name: '倒计时',
         component: './other/countdown',
       },
+      {
+        path: '/other/purine',
+        name: '嘌呤查询',
+        component: './other/purine',
+      },
     ],
   },
   { path: '/', redirect: '/home' },

@@ -15,8 +15,12 @@ const Search: FC<SearchProps> = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    console.log(values);
-    onSearch(values);
+    let tempValues = values;
+    if (!values.category) {
+      form.setFieldsValue({ category: 'all' });
+      tempValues = { ...values, category: 'all' };
+    }
+    onSearch(tempValues);
   };
 
   const onCategoryChange = async (e: RadioChangeEvent) => {

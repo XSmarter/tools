@@ -7,11 +7,10 @@ const SpeedTest = () => {
     <PageContainer breadcrumb={undefined}>
       <Card>
         <iframe
-          src="https://tools.speedtestcustom.com/"
-          sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
           width="100%"
-          height="1200"
+          height="650px"
           frameBorder="0"
+          src="https://tools.speedtestcustom.com"
         />
       </Card>
     </PageContainer>

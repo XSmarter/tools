@@ -70,6 +70,11 @@ export default [
         name: '嘌呤查询',
         component: './other/purine',
       },
+      {
+        path: '/other/speedtest',
+        name: '网络测速',
+        component: './other/speedtest',
+      },
     ],
   },
   { path: '/', redirect: '/home' },

@@ -7,7 +7,7 @@ const SpeedTest = () => {
     <PageContainer breadcrumb={undefined}>
       <Card>
         <iframe
-          src="https://woodbox.dualstack.speedtestcustom.com/"
+          src="https://tools.speedtestcustom.com/"
           sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
           width="100%"
           height="1200"

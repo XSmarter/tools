@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 
 import { json } from '@codemirror/lang-json';
-import { Button, Space } from 'antd';
+import { Button, Modal, Space } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 
 const JsonFormat = () => {
@@ -13,8 +13,19 @@ const JsonFormat = () => {
   };
 
   const handleFormat = () => {
-    const jsonFormatValue = JSON.stringify(JSON.parse(inputValue), null, 2);
-    setInputValue(jsonFormatValue);
+    try {
+      const jsonstr = decodeURIComponent(
+        encodeURIComponent(JSON.stringify(eval('(' + inputValue + ')'))),
+      );
+      const jsonFormatValue = JSON.stringify(JSON.parse(jsonstr), null, 2);
+      // const jsonFormatValue = JSON.stringify(JSON.parse(inputValue), null, 2);
+      setInputValue(jsonFormatValue);
+    } catch (error) {
+      Modal.error({
+        title: '格式化失败',
+        content: '请检查您输入的JSON格式是否正确',
+      });
+    }
   };
 
   return (

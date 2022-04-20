@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Row, Col, Avatar, List, Button } from 'antd';
+import { Card, Row, Col, Avatar, List, Button, Popconfirm } from 'antd';
 import Valine from 'valine';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 
@@ -223,13 +223,11 @@ export default (): React.ReactNode => {
                           </span>
                         </span>
                         <span className={styles.optionicon}>
-                          <span
-                            style={{
-                              marginLeft: 4,
-                            }}
-                            className={styles.icon}
-                            onClick={(e) => {
-                              e.stopPropagation();
+                          <Popconfirm
+                            title="确定删除吗？"
+                            okText="确定"
+                            cancelText="取消"
+                            onConfirm={() => {
                               const newShortcutData = shortcutData.filter(
                                 (tempItem) => tempItem.id !== item.id,
                               );
@@ -238,11 +236,34 @@ export default (): React.ReactNode => {
                               setEditShortcut({});
                             }}
                           >
-                            <DeleteOutlined key="del" />
-                          </span>
+                            <span
+                              style={{
+                                marginLeft: 4,
+                              }}
+                              className={styles.icon}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                              }}
+                            >
+                              <DeleteOutlined key="del" />
+                            </span>
+                          </Popconfirm>
                         </span>
                       </div>
                       <a key="href" href={item.url} target={'_blank'} rel="noreferrer">
+                        <Avatar
+                          shape="square"
+                          className={styles.urls}
+                          style={{
+                            backgroundColor: colors[index] || '#4c4c4c',
+                            width: '100%',
+                          }}
+                          size={72}
+                        >
+                          {item.title}
+                        </Avatar>
+                      </a>
+                      {/* <a key="href" href={item.url} target={'_blank'} rel="noreferrer">
                         <Card
                           hoverable
                           bordered={false}
@@ -254,7 +275,7 @@ export default (): React.ReactNode => {
                         >
                           {item.title}
                         </Card>
-                      </a>
+                      </a> */}
                     </List.Item>
                   );
                 }

@@ -6,3 +6,39 @@
   background: @input-bg;
   box-shadow: @card-shadow;
 }
+
+.newButton {
+  width: 100%;
+  height: auto;
+  padding: 24px;
+  color: @text-color-secondary;
+  background-color: @component-background;
+  border-color: @border-color-base;
+  border-radius: @border-radius-sm;
+}
+
+.shortcutCard {
+  .options {
+    display: none;
+  }
+  &:hover {
+    .options {
+      display: block;
+    }
+  }
+}
+
+.optionicon {
+  .icon {
+    padding: 1px 5px;
+    background: #a3a3a342;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  &:hover {
+    .icon {
+      background: #58585861;
+    }
+  }
+}

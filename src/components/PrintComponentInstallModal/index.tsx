@@ -1,7 +1,6 @@
 import React from 'react';
 import { DisconnectOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Modal, Button } from 'antd';
-import { useAccess } from 'umi';
 
 import cnIcon from '@/assets/images/icons/cn.png';
 import pddIcon from '@/assets/images/icons/pdd.png';
@@ -36,7 +35,6 @@ const PrintComponentInstallModal = ({
   onCancel,
 }: PrintComponentInstallModalProps) => {
   const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
-  const { canQN } = useAccess();
 
   const platformMap = {
     CN: {
@@ -113,11 +111,7 @@ const PrintComponentInstallModal = ({
                 <Button
                   type="primary"
                   onClick={() => {
-                    if (canQN) {
-                      window.open(platformMap[item].qnDownloadUrl);
-                    } else {
-                      window.location.href = platformMap[item].downloadUrl;
-                    }
+                    window.location.href = platformMap[item].downloadUrl;
                   }}
                   shape="round"
                   style={{ marginTop: 10 }}
@@ -133,7 +127,7 @@ const PrintComponentInstallModal = ({
                 {item === 'JD' ? (
                   <div className={styles['install-component-tips']} style={{ margin: '0 0 5px' }}>
                     <span>注意：安装完打印组件，请先访问后面的链接后再进行打印！！！</span>{' '}
-                    <a href="https://localhost:9114/print" target="_blank">
+                    <a href="https://localhost:9114/print" target="_blank" rel="noreferrer">
                       点此访问
                     </a>
                   </div>

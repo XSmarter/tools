@@ -1,8 +1,22 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Row, Col, Avatar } from 'antd';
-import Message from './components/Message';
+import { Card, Row, Col, Avatar, List, Button } from 'antd';
 import Valine from 'valine';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+
+import styles from './index.less';
+import Message from './components/Message';
+import ShortcutForm from './components/ShortcutForm';
+import { randomColors } from '@/utils/utils';
+
+interface Shortcut {
+  id: string;
+  title: string;
+  url: string;
+  sort: number;
+}
+
+const colors: string[] = randomColors();
 
 export default (): React.ReactNode => {
   const platformData = [
@@ -43,6 +57,37 @@ export default (): React.ReactNode => {
     );
   }, []);
 
+  const sort = (list: Shortcut[]) => {
+    const arr = [...list];
+    arr.sort((a, b) => {
+      if (a.sort < b.sort) {
+        return -1;
+      }
+      if (a.sort > b.sort) {
+        return 1;
+      }
+      return 0;
+    });
+    return arr;
+  };
+
+  const [shortcutData, setShortcutData] = useState<Shortcut[]>(() => {
+    const data = localStorage.getItem('shortcutData');
+    if (data) {
+      const tempData = JSON.parse(data);
+      const sortTempData = sort(tempData);
+
+      return sortTempData;
+    }
+    return [];
+  });
+
+  const nullShortcutData: Partial<Shortcut> = {};
+
+  const [shortcutFormVisible, setShortcutFormVisible] = useState(false);
+
+  const [editShortcut, setEditShortcut] = useState<Partial<Shortcut>>({});
+
   useEffect(() => {
     new Valine({
       el: '#vcomments',
@@ -52,8 +97,81 @@ export default (): React.ReactNode => {
     });
   }, []);
 
+  const addNavgate = () => {
+    setEditShortcut({});
+    setShortcutFormVisible(true);
+  };
+
+  /**
+   * 获取请求的UUID，指定长度和进制
+   * @example
+   * getUUID(8, 2) => "01001010" | getUUID(8, 10) => "47473046" | getUUID(8, 16) => "098F4D35"
+   * @param len 长度
+   * @param radix 进制
+   */
+  const getUUID = (len: number, radix: number): string => {
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+    const uuid = [];
+    let i;
+    const radixTemp = radix || chars.length;
+    if (len) {
+      for (i = 0; i < len; i += 1) uuid[i] = chars[0 | (Math.random() * radixTemp)];
+    } else {
+      let r;
+      // eslint-disable-next-line no-multi-assign
+      uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+      uuid[14] = '4';
+      for (i = 0; i < 36; i + 1) {
+        if (!uuid[i]) {
+          r = 0 | (Math.random() * 16);
+          uuid[i] = chars[i === 19 ? (r & 0x3) | 0x8 : r];
+        }
+      }
+    }
+    return uuid.join('');
+  };
+
+  const onShortcutFormFinish = (values: any) => {
+    console.log(values);
+    if (editShortcut.id) {
+      const newShortcutData = shortcutData.map((item) => {
+        if (item.id === editShortcut.id) {
+          return {
+            ...item,
+            ...values,
+          };
+        }
+        return item;
+      });
+
+      const sortTempData = sort(newShortcutData);
+      setShortcutData(sortTempData);
+      localStorage.setItem('shortcutData', JSON.stringify(sortTempData));
+      setEditShortcut({});
+    } else {
+      const newShortcutData = [
+        ...shortcutData,
+        {
+          id: getUUID(8, 10),
+          ...values,
+        },
+      ];
+      console.log(newShortcutData);
+      const sortTempData = sort(newShortcutData);
+      setShortcutData(sortTempData);
+      localStorage.setItem('shortcutData', JSON.stringify(sortTempData));
+    }
+    setShortcutFormVisible(false);
+  };
+
   return (
     <PageContainer>
+      <ShortcutForm
+        visible={shortcutFormVisible}
+        editShortcut={editShortcut}
+        onModalCancel={() => setShortcutFormVisible(false)}
+        onShortcutFormFinish={onShortcutFormFinish}
+      />
       <Row gutter={24}>
         {platformData.map((item) => (
           <Col key={item.title} xs={24} sm={12} md={12} lg={12} xl={6} style={{ marginBottom: 24 }}>
@@ -71,6 +189,92 @@ export default (): React.ReactNode => {
       </Row>
       <Row gutter={24}>
         <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>
+          <Card title="快捷链接">
+            <List
+              grid={{
+                gutter: 16,
+                xs: 1,
+                sm: 2,
+                md: 3,
+                lg: 3,
+                xl: 3,
+                xxl: 3,
+              }}
+              dataSource={[...shortcutData, nullShortcutData]}
+              renderItem={(item, index) => {
+                if (item && item.id) {
+                  return (
+                    <List.Item className={styles.shortcutCard}>
+                      <div
+                        className={styles.options}
+                        style={{ position: 'absolute', top: 6, right: 15, zIndex: 10000 }}
+                      >
+                        <span className={styles.optionicon}>
+                          <span
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setEditShortcut(item);
+                              setShortcutFormVisible(true);
+                            }}
+                            style={{}}
+                            className={styles.icon}
+                          >
+                            <EditOutlined key="edit" />
+                          </span>
+                        </span>
+                        <span className={styles.optionicon}>
+                          <span
+                            style={{
+                              marginLeft: 4,
+                            }}
+                            className={styles.icon}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const newShortcutData = shortcutData.filter(
+                                (tempItem) => tempItem.id !== item.id,
+                              );
+                              setShortcutData(newShortcutData);
+                              localStorage.setItem('shortcutData', JSON.stringify(newShortcutData));
+                              setEditShortcut({});
+                            }}
+                          >
+                            <DeleteOutlined key="del" />
+                          </span>
+                        </span>
+                      </div>
+                      <a key="href" href={item.url} target={'_blank'} rel="noreferrer">
+                        <Card
+                          hoverable
+                          bordered={false}
+                          style={{
+                            backgroundColor: colors[index] || '#4c4c4c',
+                          }}
+                          bodyStyle={{ textAlign: 'center', color: 'white', fontSize: 16 }}
+                          title={undefined}
+                        >
+                          {item.title}
+                        </Card>
+                      </a>
+                    </List.Item>
+                  );
+                }
+
+                return (
+                  <List.Item>
+                    <Button type="dashed" onClick={addNavgate} className={styles.newButton}>
+                      <PlusOutlined /> 添加
+                    </Button>
+                  </List.Item>
+                );
+              }}
+            />
+          </Card>
+
+          <Card title="留言区" style={{ marginTop: 24 }}>
+            <Message />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>
           <Card
             bodyStyle={{
               height: isMobile ? '987px' : '1007px',
@@ -86,11 +290,6 @@ export default (): React.ReactNode => {
               frameBorder="0"
               style={{ position: 'absolute', top: isMobile ? '-222px' : '-192px', left: '0px' }}
             />
-          </Card>
-        </Col>
-        <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>
-          <Card title="留言区">
-            <Message />
           </Card>
         </Col>
       </Row>

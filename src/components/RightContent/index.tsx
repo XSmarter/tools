@@ -1,12 +1,16 @@
+import { MessageFilled } from '@ant-design/icons';
 import { Space } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { useModel } from 'umi';
+import MessageModal from '../MessageModal';
 import Avatar from './AvatarDropdown';
 import styles from './index.less';
 export type SiderTheme = 'light' | 'dark';
 
 const GlobalHeaderRight: React.FC = () => {
   const { initialState } = useModel('@@initialState');
+
+  const [messageModalVisible, setMessageModalVisible] = useState<boolean>(false);
 
   if (!initialState || !initialState.settings) {
     return null;
@@ -20,8 +24,10 @@ const GlobalHeaderRight: React.FC = () => {
   }
 
   return (
-    <Space className={className}>
-      {/* <HeaderSearch
+    <>
+      <MessageModal visible={messageModalVisible} onCancel={() => setMessageModalVisible(false)} />
+      <Space className={className}>
+        {/* <HeaderSearch
         className={`${styles.action} ${styles.search}`}
         placeholder="站内搜索"
         defaultValue="umi ui"
@@ -54,8 +60,12 @@ const GlobalHeaderRight: React.FC = () => {
       >
         <QuestionCircleOutlined />
       </span> */}
-      <Avatar />
-    </Space>
+        <span className={styles.action} onClick={() => setMessageModalVisible(true)}>
+          <MessageFilled />
+        </span>
+        <Avatar />
+      </Space>
+    </>
   );
 };
 

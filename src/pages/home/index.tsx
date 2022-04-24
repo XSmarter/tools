@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Row, Col, Avatar, List, Button, Popconfirm } from 'antd';
-import Valine from 'valine';
+
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 
 import styles from './index.less';
-import Message from './components/Message';
 import ShortcutForm from './components/ShortcutForm';
 import { randomColors } from '@/utils/utils';
 
@@ -87,15 +86,6 @@ export default (): React.ReactNode => {
   const [shortcutFormVisible, setShortcutFormVisible] = useState(false);
 
   const [editShortcut, setEditShortcut] = useState<Partial<Shortcut>>({});
-
-  useEffect(() => {
-    new Valine({
-      el: '#vcomments',
-      // other config
-      appId: 'vsB5r15jmHR98cfwla4X1Pkg-gzGzoHsz',
-      appKey: 'oJsbu5ACUik8fabHxo1pbRqa',
-    });
-  }, []);
 
   const addNavgate = () => {
     setEditShortcut({});
@@ -289,10 +279,6 @@ export default (): React.ReactNode => {
                 );
               }}
             />
-          </Card>
-
-          <Card title="留言区" style={{ marginTop: 24 }}>
-            <Message />
           </Card>
         </Col>
         <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>

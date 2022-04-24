@@ -33,6 +33,8 @@ const loginOut = async () => {
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const { initialState, setInitialState } = useModel('@@initialState');
 
+  const { settings } = useModel('useSettings');
+
   const onMenuClick = useCallback(
     (event: MenuInfo) => {
       const { key } = event;
@@ -99,7 +101,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
           src={'https://joeschmoe.io/api/v1/random'}
           alt="avatar"
         />
-        <span className={`${styles.name} anticon`}>Admin</span>
+        <span className={`${styles.name} anticon`}>{(settings && settings.name) || 'Admin'}</span>
       </span>
     </HeaderDropdown>
   );

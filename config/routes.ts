@@ -77,6 +77,7 @@ export default [
       },
     ],
   },
+  { path: '/settings', name: '设置', icon: 'setting', component: './settings' },
   { path: '/', redirect: '/home' },
   { component: './404' },
 ];

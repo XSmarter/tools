@@ -19,6 +19,7 @@ const Duty = () => {
       '赵运达',
       '刘尝鹏',
       '郑涛',
+      '段昌富',
     ];
 
     // 03 - 14 韩飞
@@ -26,7 +27,7 @@ const Duty = () => {
     const wcArr = [
       '韩飞',
       '王见见',
-      '徐文超',
+      '许文超',
       '王理想',
       '赵宝才',
       '郑涛',
@@ -45,7 +46,7 @@ const Duty = () => {
       '', // 吴涛
     ];
 
-    const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2021-12-22'), 'days');
+    const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-04-27'), 'days');
 
     const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-03-14'), 'days');
     if (day >= 0) {

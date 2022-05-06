@@ -11,11 +11,11 @@ const tailLayout = {
   wrapperCol: { offset: 4, span: 6 },
 };
 
-interface CompareFormProps {
+interface OrderCompareFormProps {
   onCompareFormFinish: (values: any) => void;
 }
 
-const CompareForm: FC<CompareFormProps> = (props) => {
+const OrderCompareForm: FC<OrderCompareFormProps> = (props) => {
   const [form] = Form.useForm();
   const { onCompareFormFinish } = props;
 
@@ -47,4 +47,4 @@ const CompareForm: FC<CompareFormProps> = (props) => {
   );
 };
 
-export default CompareForm;
+export default OrderCompareForm;

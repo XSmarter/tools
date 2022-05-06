@@ -27,6 +27,23 @@ export default [
         path: '/work/compare',
         name: '对比',
         component: './work/compare',
+        routes: [
+          {
+            path: '/work/compare',
+            redirect: '/work/compare/order',
+          },
+          {
+            path: '/work/compare/order',
+            component: './work/compare/order',
+          },
+          {
+            path: '/work/compare/address',
+            component: './work/compare/address',
+          },
+          {
+            component: './404',
+          },
+        ],
       },
       {
         path: '/work/duty',

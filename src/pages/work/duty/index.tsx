@@ -22,7 +22,7 @@ const Duty = () => {
       '段昌富',
     ];
 
-    // 03 - 14 韩飞
+    // 05-30 韩飞
 
     const wcArr = [
       '韩飞',
@@ -44,11 +44,12 @@ const Duty = () => {
       '', // 张子麟
       '', // 段昌富
       '', // 吴涛
+      '', // 刘全杰
     ];
 
     const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-04-27'), 'days');
 
-    const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-03-14'), 'days');
+    const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-05-30'), 'days');
     if (day >= 0) {
       const idx = day % nightArr.length;
 

@@ -135,7 +135,7 @@ const Duty = () => {
             ) : undefined}
 
             {catArr[catIdx] && catDay >= 0 ? (
-              <Tooltip title={`照顾猫猫${!(catDay % 7) ? ',换猫砂' : ''}`} placement="top">
+              <Tooltip title={`照顾猫猫${!(catDay % 7) ? '，换猫砂' : ''}`} placement="top">
                 <Avatar size="large" style={{ backgroundColor: '#bbc933' }}>
                   {catArr[catIdx]}
                 </Avatar>

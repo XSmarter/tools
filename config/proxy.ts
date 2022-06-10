@@ -8,10 +8,12 @@
  */
 export default {
   dev: {
-    '/api/': {
-      target: 'https://preview.pro.ant.design',
+    '/ys/': {
+      target: 'https://hk4e-api.mihoyo.com',
       changeOrigin: true,
-      pathRewrite: { '^': '' },
+      pathRewrite: {
+        '^/ys': '',
+      },
     },
   },
   test: {

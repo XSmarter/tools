@@ -83,3 +83,9 @@ export async function removeRule(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+export async function getYSUpData(args: string) {
+  return request<Record<string, any>>(`/ys/event/gacha_info/api/getGachaLog${args}`, {
+    method: 'GET',
+  });
+}

@@ -92,6 +92,11 @@ export default [
         name: '网络测速',
         component: './other/speedtest',
       },
+      // {
+      //   path: '/other/ys',
+      //   name: 'YS',
+      //   component: './other/ys',
+      // },
     ],
   },
   { path: '/settings', name: '设置', icon: 'setting', component: './settings' },

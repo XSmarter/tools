@@ -49,7 +49,7 @@ const Duty = () => {
 
     const catArr = [
       '', // 何科碟
-      '', // 刘全杰
+      '刘全杰', //
       '', // 孙艳艳
       '', // 解方萍
       '', // 吴丹丹
@@ -98,6 +98,12 @@ const Duty = () => {
 
       const catIdx = catDay % catArr.length;
 
+      const loopTime = Math.floor(catDay / catArr.length);
+
+      const catChangeShit = !((catDay - loopTime) % 7);
+
+      console.log(loopTime);
+
       // if (wcArr[wcIdx] && wcDay >= 0) {
       //   return (
       //     <div style={{ textAlign: 'right' }}>
@@ -135,7 +141,7 @@ const Duty = () => {
             ) : undefined}
 
             {catArr[catIdx] && catDay >= 0 ? (
-              <Tooltip title={`照顾猫猫${!(catDay % 7) ? '，换猫砂' : ''}`} placement="top">
+              <Tooltip title={`照顾猫猫${catChangeShit ? '，换猫砂' : ''}`} placement="top">
                 <Avatar size="large" style={{ backgroundColor: '#bbc933' }}>
                   {catArr[catIdx]}
                 </Avatar>

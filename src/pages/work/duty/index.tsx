@@ -1,26 +1,45 @@
 import { PageContainer } from '@ant-design/pro-layout';
-import { Avatar, Calendar, Card, Tooltip } from 'antd';
+import { Avatar, Calendar, Card, Select, Tooltip } from 'antd';
 import type { Moment } from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 
+const nightArr: string[] = [
+  '李冰',
+  '王见见',
+  '王理想',
+  '张自香',
+  '赵宝才',
+  '韩飞',
+  '赵运达',
+  '刘尝鹏',
+  '郑涛',
+  '段昌富',
+];
+
 const Duty = () => {
+  const [selectedName, setSelectedName] = useState<string>('');
+
+  const onChange = (value: any) => {
+    setSelectedName(value);
+  };
+
   const dateCellRender = (date: Moment) => {
-    const nightArr: string[] = [
-      '李冰',
-      '王见见',
-      '王理想',
-      '张自香',
-      '赵宝才',
-      '韩飞',
-      '赵运达',
-      '刘尝鹏',
-      '郑涛',
-      '段昌富',
-    ];
+    // const nightArr: string[] = [
+    //   '李冰',
+    //   '王见见',
+    //   '王理想',
+    //   '张自香',
+    //   '赵宝才',
+    //   '韩飞',
+    //   '赵运达',
+    //   '刘尝鹏',
+    //   '郑涛',
+    //   '段昌富',
+    // ];
 
     // 05-30 韩飞
 
@@ -126,13 +145,17 @@ const Duty = () => {
       return (
         <div style={{ textAlign: 'right' }}>
           <Avatar.Group>
-            <Tooltip title="晚上值班" placement="top">
-              <Avatar size="large" style={{ backgroundColor: '#464646' }}>
-                {nightArr[idx]}
-              </Avatar>
-            </Tooltip>
+            {!selectedName || (selectedName && nightArr[idx] === selectedName) ? (
+              <Tooltip title="晚上值班" placement="top">
+                <Avatar size="large" style={{ backgroundColor: '#464646' }}>
+                  {nightArr[idx]}
+                </Avatar>
+              </Tooltip>
+            ) : undefined}
 
-            {wcArr[wcIdx] && wcDay >= 0 ? (
+            {wcArr[wcIdx] &&
+            wcDay >= 0 &&
+            (!selectedName || (selectedName && wcArr[wcIdx] === selectedName)) ? (
               <Tooltip title="打扫厕所" placement="top">
                 <Avatar size="large" style={{ backgroundColor: '#ffc107' }}>
                   {wcArr[wcIdx]}
@@ -140,7 +163,9 @@ const Duty = () => {
               </Tooltip>
             ) : undefined}
 
-            {catArr[catIdx] && catDay >= 0 ? (
+            {catArr[catIdx] &&
+            catDay >= 0 &&
+            (!selectedName || (selectedName && catArr[catIdx] === selectedName)) ? (
               <Tooltip title={`照顾猫猫${catChangeShit ? '，换猫砂' : ''}`} placement="top">
                 <Avatar size="large" style={{ backgroundColor: '#bbc933' }}>
                   {catArr[catIdx]}
@@ -157,6 +182,21 @@ const Duty = () => {
   return (
     <PageContainer breadcrumb={undefined}>
       <Card>
+        <Select
+          showSearch
+          placeholder="选择值班人员"
+          optionFilterProp="children"
+          style={{ width: '172px' }}
+          onChange={onChange}
+          filterOption={(input: any, option: any) =>
+            (option!.children as unknown as string).toLowerCase().includes(input.toLowerCase())
+          }
+        >
+          <Select.Option value="">全部值班人员</Select.Option>
+          {nightArr.map((item) => (
+            <Select.Option value={item}>{item}</Select.Option>
+          ))}
+        </Select>
         <Calendar dateCellRender={dateCellRender} />
       </Card>
     </PageContainer>

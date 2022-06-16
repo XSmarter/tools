@@ -78,9 +78,9 @@ export default [
         component: './other/json',
       },
       {
-        path: '/other/countdown',
+        path: '/other/countdowns',
         name: '倒计时',
-        component: './other/countdown',
+        component: './other/countdowns',
       },
       {
         path: '/other/purine',

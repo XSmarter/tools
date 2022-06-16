@@ -46,4 +46,18 @@ const randomColors = (): string[] => {
   // return `rgb(${r},${g},${b})`;
 };
 
-export { getUUID, randomColors };
+const sort = (list: any[]) => {
+  const arr = [...list];
+  arr.sort((a, b) => {
+    if (a.sort < b.sort) {
+      return -1;
+    }
+    if (a.sort > b.sort) {
+      return 1;
+    }
+    return 0;
+  });
+  return arr;
+};
+
+export { getUUID, randomColors, sort };

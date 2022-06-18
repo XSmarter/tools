@@ -16,6 +16,9 @@ const Settings: LayoutSettings & {
   pwa: false,
   logo: 'https://tools-teal.vercel.app/mco.svg',
   iconfontUrl: '',
+  menu: {
+    locale: false,
+  },
 };
 
 export default Settings;

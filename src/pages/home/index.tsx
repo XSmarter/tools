@@ -1,12 +1,13 @@
-import React, { useMemo, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Row, Col, Avatar, List, Button, Popconfirm } from 'antd';
+import { Avatar, Button, Card, Col, List, Popconfirm, Row, Space } from 'antd';
+import React, { useMemo, useState } from 'react';
 
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 
-import styles from './index.less';
-import ShortcutForm from './components/ShortcutForm';
+import DateCalcForm from '@/components/DateCalcForm';
 import { getUUID, randomColors, sort } from '@/utils/utils';
+import ShortcutForm from './components/ShortcutForm';
+import styles from './index.less';
 
 interface Shortcut {
   id: string;
@@ -136,81 +137,85 @@ export default (): React.ReactNode => {
       </Row>
       <Row gutter={24}>
         <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>
-          <Card title="快捷链接">
-            <List
-              grid={{
-                gutter: 16,
-                xs: 1,
-                sm: 2,
-                md: 3,
-                lg: 3,
-                xl: 3,
-                xxl: 3,
-              }}
-              dataSource={[...shortcutData, nullShortcutData]}
-              renderItem={(item, index) => {
-                if (item && item.id) {
-                  return (
-                    <List.Item className={styles.shortcutCard}>
-                      <div
-                        className={styles.options}
-                        style={{ position: 'absolute', top: 6, right: 15, zIndex: 10000 }}
-                      >
-                        <span className={styles.optionicon}>
-                          <span
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setEditShortcut(item);
-                              setShortcutFormVisible(true);
-                            }}
-                            style={{}}
-                            className={styles.icon}
-                          >
-                            <EditOutlined key="edit" />
-                          </span>
-                        </span>
-                        <span className={styles.optionicon}>
-                          <Popconfirm
-                            title="确定删除吗？"
-                            okText="确定"
-                            cancelText="取消"
-                            onConfirm={() => {
-                              const newShortcutData = shortcutData.filter(
-                                (tempItem) => tempItem.id !== item.id,
-                              );
-                              setShortcutData(newShortcutData);
-                              localStorage.setItem('shortcutData', JSON.stringify(newShortcutData));
-                              setEditShortcut({});
-                            }}
-                          >
+          <Space direction="vertical" style={{ width: '100%' }}>
+            <Card title="快捷链接">
+              <List
+                grid={{
+                  gutter: 16,
+                  xs: 1,
+                  sm: 2,
+                  md: 3,
+                  lg: 3,
+                  xl: 3,
+                  xxl: 3,
+                }}
+                dataSource={[...shortcutData, nullShortcutData]}
+                renderItem={(item, index) => {
+                  if (item && item.id) {
+                    return (
+                      <List.Item className={styles.shortcutCard}>
+                        <div
+                          className={styles.options}
+                          style={{ position: 'absolute', top: 6, right: 15, zIndex: 10000 }}
+                        >
+                          <span className={styles.optionicon}>
                             <span
-                              style={{
-                                marginLeft: 4,
-                              }}
-                              className={styles.icon}
                               onClick={(e) => {
                                 e.stopPropagation();
+                                setEditShortcut(item);
+                                setShortcutFormVisible(true);
+                              }}
+                              style={{}}
+                              className={styles.icon}
+                            >
+                              <EditOutlined key="edit" />
+                            </span>
+                          </span>
+                          <span className={styles.optionicon}>
+                            <Popconfirm
+                              title="确定删除吗？"
+                              okText="确定"
+                              cancelText="取消"
+                              onConfirm={() => {
+                                const newShortcutData = shortcutData.filter(
+                                  (tempItem) => tempItem.id !== item.id,
+                                );
+                                setShortcutData(newShortcutData);
+                                localStorage.setItem(
+                                  'shortcutData',
+                                  JSON.stringify(newShortcutData),
+                                );
+                                setEditShortcut({});
                               }}
                             >
-                              <DeleteOutlined key="del" />
-                            </span>
-                          </Popconfirm>
-                        </span>
-                      </div>
-                      <a key="href" href={item.url} target={'_blank'} rel="noreferrer">
-                        <Avatar
-                          shape="square"
-                          className={styles.urls}
-                          style={{
-                            backgroundColor: colors[index] || '#4c4c4c',
-                            width: '100%',
-                          }}
-                          size={72}
-                        >
-                          {item.title}
-                        </Avatar>
-                      </a>
-                      {/* <a key="href" href={item.url} target={'_blank'} rel="noreferrer">
+                              <span
+                                style={{
+                                  marginLeft: 4,
+                                }}
+                                className={styles.icon}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                }}
+                              >
+                                <DeleteOutlined key="del" />
+                              </span>
+                            </Popconfirm>
+                          </span>
+                        </div>
+                        <a key="href" href={item.url} target={'_blank'} rel="noreferrer">
+                          <Avatar
+                            shape="square"
+                            className={styles.urls}
+                            style={{
+                              backgroundColor: colors[index] || '#4c4c4c',
+                              width: '100%',
+                            }}
+                            size={72}
+                          >
+                            {item.title}
+                          </Avatar>
+                        </a>
+                        {/* <a key="href" href={item.url} target={'_blank'} rel="noreferrer">
                         <Card
                           hoverable
                           bordered={false}
@@ -223,20 +228,24 @@ export default (): React.ReactNode => {
                           {item.title}
                         </Card>
                       </a> */}
+                      </List.Item>
+                    );
+                  }
+
+                  return (
+                    <List.Item>
+                      <Button type="dashed" onClick={addNavgate} className={styles.newButton}>
+                        <PlusOutlined /> 添加
+                      </Button>
                     </List.Item>
                   );
-                }
-
-                return (
-                  <List.Item>
-                    <Button type="dashed" onClick={addNavgate} className={styles.newButton}>
-                      <PlusOutlined /> 添加
-                    </Button>
-                  </List.Item>
-                );
-              }}
-            />
-          </Card>
+                }}
+              />
+            </Card>
+            <Card title="日期计算">
+              <DateCalcForm />
+            </Card>
+          </Space>
         </Col>
         <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>
           <Card

@@ -1,5 +1,5 @@
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
-import { DefaultFooter, PageLoading } from '@ant-design/pro-layout';
+import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
 // import { history } from 'umi';
 import RightContent from '@/components/RightContent';
@@ -57,9 +57,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     // waterMarkProps: {
     //   content: initialState?.currentUser?.name,
     // },
-    footerRender: () => (
-      <DefaultFooter copyright={`${new Date().getFullYear()} Tools`} links={[]} />
-    ),
+    // footerRender: () => (
+    //   <DefaultFooter copyright={`${new Date().getFullYear()} Tools`} links={[]} />
+    // ),
     // onPageChange: () => {
     //   const { location } = history;
     //   // 如果没有登录，重定向到 login
@@ -164,6 +164,20 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
           <HeaderContent />
           {defaultDom}
         </>
+      );
+    },
+    menuFooterRender: (props) => {
+      if (props?.collapsed) return undefined;
+      return (
+        <div
+          style={{
+            textAlign: 'center',
+            paddingTop: 12,
+          }}
+        >
+          <div>© {new Date().getFullYear()} Tools</div>
+          <div>by 闲心</div>
+        </div>
       );
     },
 

@@ -3,6 +3,7 @@ import { DefaultFooter, PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
 // import { history } from 'umi';
 import RightContent from '@/components/RightContent';
+import HeaderContent from './components/HeaderContent';
 // import Footer from '@/components/Footer';
 // import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 // import { BookOutlined, LinkOutlined } from '@ant-design/icons';
@@ -153,6 +154,18 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
         url: 'https://www.aliyun.com/',
       },
     ],
+    headerContentRender: (_, defaultDom) => {
+      if (document.body.clientWidth < 1400) {
+        return defaultDom;
+      }
+      if (_.isMobile) return defaultDom;
+      return (
+        <>
+          <HeaderContent />
+          {defaultDom}
+        </>
+      );
+    },
 
     menuHeaderRender: undefined,
     // 自定义 403 页面

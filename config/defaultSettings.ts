@@ -18,6 +18,8 @@ const Settings: LayoutSettings & {
   iconfontUrl: '',
   menu: {
     locale: false,
+    type: 'group',
+    collapsedShowTitle: true,
   },
 };
 

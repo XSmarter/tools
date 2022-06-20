@@ -137,7 +137,7 @@ export default (): React.ReactNode => {
       </Row>
       <Row gutter={24}>
         <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ marginBottom: 24 }}>
-          <Space direction="vertical" style={{ width: '100%' }}>
+          <Space direction="vertical" style={{ width: '100%', display: 'flex' }}>
             <Card title="快捷链接">
               <List
                 grid={{

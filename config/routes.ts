@@ -1,11 +1,12 @@
 export default [
   {
-    path: '/user',
+    path: '/login',
     layout: false,
-    routes: [
-      { path: '/user', routes: [{ name: '登录', path: '/user/login', component: './user/Login' }] },
-      { component: './404' },
-    ],
+    component: './user/login',
+    // routes: [
+    //   { path: '/user', routes: [{ name: '登录', path: '/user/login', component: './user/Login' }] },
+    //   { component: './404' },
+    // ],
   },
   { path: '/home', name: '首页', icon: 'home', component: './home' },
   {
@@ -13,6 +14,7 @@ export default [
     name: '工作',
     icon: 'laptop',
     component: './work',
+    access: 'canWork',
     routes: [
       {
         path: '/work',
@@ -56,55 +58,55 @@ export default [
     ],
   },
   {
-    path: '/other',
-    name: '其他',
+    path: '/tools',
+    name: '工具',
     icon: 'code',
-    component: './other',
+    component: './tools',
     routes: [
       {
-        path: '/other',
-        redirect: '/other/tinyimg',
+        path: '/tools',
+        redirect: '/tools/tinyimg',
       },
       {
-        path: '/other/tinyimg',
+        path: '/tools/tinyimg',
         name: '压缩图片',
         icon: 'fileZip',
-        component: './other/tinyimg',
+        component: './tools/tinyimg',
       },
       {
-        path: '/other/endecode',
+        path: '/tools/endecode',
         name: '信息编码',
         icon: 'translation',
-        component: './other/endecode',
+        component: './tools/endecode',
       },
       {
-        path: '/other/json',
+        path: '/tools/json',
         name: '格式JSON',
         icon: 'formatPainter',
-        component: './other/json',
+        component: './tools/json',
       },
       {
-        path: '/other/countdowns',
+        path: '/tools/countdowns',
         name: '倒计时',
         icon: 'fieldTime',
-        component: './other/countdowns',
+        component: './tools/countdowns',
       },
       {
-        path: '/other/purine',
+        path: '/tools/purine',
         name: '嘌呤查询',
         icon: 'search',
-        component: './other/purine',
+        component: './tools/purine',
       },
       {
-        path: '/other/speedtest',
+        path: '/tools/speedtest',
         name: '网络测速',
         icon: 'send',
-        component: './other/speedtest',
+        component: './tools/speedtest',
       },
       // {
-      //   path: '/other/ys',
+      //   path: '/tools/ys',
       //   name: 'YS',
-      //   component: './other/ys',
+      //   component: './tools/ys',
       // },
     ],
   },

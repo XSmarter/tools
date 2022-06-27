@@ -1,6 +1,5 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import { Form } from 'antd';
-import React from 'react';
 import InputForm from './components/InputForm';
 
 const standard = {

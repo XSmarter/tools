@@ -1,9 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons';
 import type { RadioChangeEvent } from 'antd';
-import { Button, Input } from 'antd';
-import { Form, Radio } from 'antd';
+import { Button, Form, Input, Radio } from 'antd';
 import type { FC } from 'react';
-import React from 'react';
 
 interface SearchProps {
   data: any[];

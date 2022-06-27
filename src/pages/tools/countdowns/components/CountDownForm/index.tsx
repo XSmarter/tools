@@ -1,8 +1,7 @@
-import { Modal, Form, InputNumber, Input, DatePicker } from 'antd';
+import { DatePicker, Form, Input, InputNumber, Modal } from 'antd';
+import moment from 'moment';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import React from 'react';
-import moment from 'moment';
 
 interface CountDownFormProps {
   visible: boolean;

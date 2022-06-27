@@ -1,8 +1,6 @@
 import type { FormInstance } from 'antd';
-import { Divider } from 'antd';
-import { Button, Form, Input, Radio, Space } from 'antd';
+import { Button, Divider, Form, Input, Radio, Space } from 'antd';
 import type { FC } from 'react';
-import React from 'react';
 
 const layout = {
   labelCol: { span: 4 },

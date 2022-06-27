@@ -1,7 +1,7 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table/interface';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Search from './components/Search';
 
 import purineData from './data';

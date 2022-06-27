@@ -1,7 +1,6 @@
 import { Button, Form, InputNumber, Space } from 'antd';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import React from 'react';
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 6 },

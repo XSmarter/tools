@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
+import { useState } from 'react';
 
+import { PageContainer } from '@ant-design/pro-layout';
 import { json } from '@codemirror/lang-json';
 import { Button, Modal, Space } from 'antd';
-import { PageContainer } from '@ant-design/pro-layout';
 
 const JsonFormat = () => {
   const [inputValue, setInputValue] = useState<string>('');

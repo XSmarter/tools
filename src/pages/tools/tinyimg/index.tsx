@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Upload, Modal } from 'antd';
+import { Card, Modal, Upload } from 'antd';
 import type { RcFile, UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
 import React from 'react';
 import TinyimgSettingForm from './components/TinyimgSettingForm';

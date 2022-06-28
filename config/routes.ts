@@ -3,10 +3,6 @@ export default [
     path: '/login',
     layout: false,
     component: './user/login',
-    // routes: [
-    //   { path: '/user', routes: [{ name: '登录', path: '/user/login', component: './user/Login' }] },
-    //   { component: './404' },
-    // ],
   },
   { path: '/home', name: '首页', icon: 'home', component: './home' },
   {

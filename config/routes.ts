@@ -2,7 +2,7 @@ export default [
   {
     path: '/login',
     layout: false,
-    component: './user/login',
+    component: './login',
   },
   { path: '/home', name: '首页', icon: 'home', component: './home' },
   {

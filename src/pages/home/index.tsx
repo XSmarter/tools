@@ -266,7 +266,7 @@ export default (): React.ReactNode => {
               width="100%"
               height="1200"
               frameBorder="0"
-              style={{ position: 'absolute', top: isMobile ? '-222px' : '-192px', left: '0px' }}
+              style={{ position: 'absolute', top: isMobile ? '-222px' : '-156px', left: '0px' }}
             />
           </Card>
         </Col>

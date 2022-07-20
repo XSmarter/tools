@@ -1,8 +1,9 @@
 import { PageContainer } from '@ant-design/pro-layout';
-import { Avatar, Calendar, Card, Select, Tooltip } from 'antd';
+import { Avatar, Calendar, Card, ConfigProvider, Select, Tooltip } from 'antd';
 import type { Moment } from 'moment';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
+import zhCN from 'antd/es/locale/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
@@ -100,7 +101,7 @@ const Duty = () => {
       '', // 朱文艳
       '', // 张洁
       '', // 黄荣
-      '', // 童严秋
+      // '', // 童严秋
       '', // 叶婷婷
     ];
 
@@ -108,7 +109,7 @@ const Duty = () => {
 
     const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-05-30'), 'days');
 
-    const catDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-06-10'), 'days');
+    const catDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-07-15'), 'days');
 
     if (day >= 0) {
       const idx = day % nightArr.length;
@@ -117,11 +118,9 @@ const Duty = () => {
 
       const catIdx = catDay % catArr.length;
 
-      const loopTime = Math.floor(catDay / catArr.length);
+      const loopTime = Math.floor(catDay / catArr.length) + 1;
 
       const catChangeShit = !((catDay - loopTime) % 7);
-
-      console.log(loopTime);
 
       // if (wcArr[wcIdx] && wcDay >= 0) {
       //   return (
@@ -181,24 +180,26 @@ const Duty = () => {
 
   return (
     <PageContainer breadcrumb={undefined}>
-      <Card>
-        <Select
-          showSearch
-          placeholder="选择值班人员"
-          optionFilterProp="children"
-          style={{ width: '172px' }}
-          onChange={onChange}
-          filterOption={(input: any, option: any) =>
-            (option!.children as unknown as string).toLowerCase().includes(input.toLowerCase())
-          }
-        >
-          <Select.Option value="">全部值班人员</Select.Option>
-          {nightArr.map((item) => (
-            <Select.Option value={item}>{item}</Select.Option>
-          ))}
-        </Select>
-        <Calendar dateCellRender={dateCellRender} />
-      </Card>
+      <ConfigProvider locale={zhCN}>
+        <Card>
+          <Select
+            showSearch
+            placeholder="选择值班人员"
+            optionFilterProp="children"
+            style={{ width: '172px' }}
+            onChange={onChange}
+            filterOption={(input: any, option: any) =>
+              (option!.children as unknown as string).toLowerCase().includes(input.toLowerCase())
+            }
+          >
+            <Select.Option value="">全部值班人员</Select.Option>
+            {nightArr.map((item) => (
+              <Select.Option value={item}>{item}</Select.Option>
+            ))}
+          </Select>
+          <Calendar dateCellRender={dateCellRender} />
+        </Card>
+      </ConfigProvider>
     </PageContainer>
   );
 };

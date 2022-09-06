@@ -19,7 +19,7 @@ export default () => {
     <div style={{ backgroundColor: 'white', height: '100%' }}>
       <LoginFormPage
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
-        logo="https://tools-teal.vercel.app/mco.svg"
+        logo="http://82.157.201.25//mco.svg"
         title="Tools"
         subTitle="a good tools web"
         onFinish={async (values) => {

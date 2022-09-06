@@ -14,7 +14,7 @@ const Settings: LayoutSettings & {
   colorWeak: false,
   title: 'Tools',
   pwa: false,
-  logo: 'https://tools-teal.vercel.app/mco.svg',
+  logo: 'http://82.157.201.25//mco.svg',
   iconfontUrl: '',
   menu: {
     locale: false,

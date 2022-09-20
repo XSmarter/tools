@@ -118,7 +118,7 @@ const Duty = () => {
 
       const catIdx = catDay % catArr.length;
 
-      const loopTime = Math.floor(catDay / catArr.length);
+      const loopTime = Math.floor(catDay / catArr.length) - 1;
 
       const catChangeShit = !((catDay - loopTime) % 7);
 

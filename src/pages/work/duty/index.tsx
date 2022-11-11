@@ -42,29 +42,29 @@ const Duty = () => {
     //   '段昌富',
     // ];
 
-    // 05-30 韩飞
+    // 11-11 王理想
 
     const wcArr = [
-      '韩飞',
-      '王见见',
-      '许文超',
       '王理想',
-      '赵宝才',
+      '', // 杨镇源
       '郑涛',
-      '张自香',
-      '孙冰',
+      '王见见',
+      '', // 岳国栋
       '赵运达',
+      '', // 高帅
+      '', // 吴涛
+      '韩飞',
+      '赵宝才',
+      '', // 厉军
+      '孙冰',
+      '张自香',
+      '', // 李杨
+      '', // 张子麟
+      '', // 刘全杰
+      '许文超',
+      '段昌富',
       '刘尝鹏',
       '', // 张飞龙
-      '', // 岳国栋
-      '', // 杨镇源
-      '', // 厉军
-      '', // 李杨
-      '', // 高帅
-      '', // 张子麟
-      '', // 段昌富
-      '', // 吴涛
-      '', // 刘全杰
     ];
 
     const catArr = [
@@ -107,7 +107,7 @@ const Duty = () => {
 
     const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-04-27'), 'days');
 
-    const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-05-30'), 'days');
+    const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-11-11'), 'days');
 
     const catDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-07-15'), 'days');
 

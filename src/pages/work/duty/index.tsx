@@ -8,17 +8,42 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 
-const nightArr: string[] = [
+const allArr = [
   '李冰',
   '王见见',
+  '许文超',
   '王理想',
-  '张自香',
   '赵宝才',
+  '郑涛',
   '韩飞',
+  '张自香',
   '赵运达',
   '刘尝鹏',
-  '郑涛',
   '段昌富',
+  '何科碟',
+  '刘全杰',
+  '孙艳艳',
+  '解方萍',
+  '吴丹丹',
+  '张飞龙', //
+  '孙冰', // 孙冰
+  '宋俊瑶', // 宋俊瑶
+  '吴涛', //
+  '陈琳', //
+  '马莉娟', //
+  '岳国栋', //
+  '杨镇源', //
+  '乔郭霞', //
+  '厉军', //
+  '李扬', //
+  '高帅', //
+  '张子麟', //
+  '巩鑫冉', //
+  '朱文艳', //
+  '张洁', //
+  '黄荣', //
+  '叶婷婷',
+  '童严秋',
 ];
 
 const Duty = () => {
@@ -41,38 +66,50 @@ const Duty = () => {
     //   '郑涛',
     //   '段昌富',
     // ];
+    const nightArr: string[] = [
+      '李冰',
+      '王见见',
+      '王理想',
+      '张自香',
+      '赵宝才',
+      '韩飞',
+      '赵运达',
+      '刘尝鹏',
+      '郑涛',
+      '段昌富',
+    ];
 
     // 11-11 王理想
 
     const wcArr = [
       '王理想',
-      '', // 杨镇源
+      '杨镇源',
       '郑涛',
       '王见见',
-      '', // 岳国栋
+      '岳国栋',
       '赵运达',
-      '', // 高帅
-      '', // 吴涛
+      '高帅',
+      '吴涛',
       '韩飞',
       '赵宝才',
-      '', // 厉军
+      '厉军',
       '孙冰',
       '张自香',
-      '', // 李杨
-      '', // 张子麟
-      '', // 刘全杰
+      '李杨',
+      '张子麟',
+      '刘全杰',
       '许文超',
       '段昌富',
       '刘尝鹏',
-      '', // 张飞龙
+      '张飞龙',
     ];
 
     const catArr = [
-      '', // 何科碟
-      '', // 刘全杰
-      '', // 孙艳艳
-      '', // 解方萍
-      '', // 吴丹丹
+      '何科碟',
+      '刘全杰',
+      '孙艳艳',
+      '解方萍',
+      '吴丹丹',
       '李冰',
       '王见见',
       '许文超',
@@ -84,26 +121,44 @@ const Duty = () => {
       '赵运达',
       '刘尝鹏',
       '段昌富',
-      '', // 张飞龙
-      '', // 孙冰
-      '', // 宋俊瑶
-      '', // 吴涛
-      '', // 陈琳
-      '', // 马莉娟
-      '', // 岳国栋
-      '', // 杨镇源
-      '', // 乔郭霞
-      '', // 厉军
-      '', // 李扬
-      '', // 高帅
-      '', // 张子麟
-      '', // 巩鑫冉
-      '', // 朱文艳
-      '', // 张洁
-      '', // 黄荣
+      '张飞龙', //
+      '孙冰', // 孙冰
+      '宋俊瑶', // 宋俊瑶
+      '吴涛', //
+      '陈琳', //
+      '马莉娟', //
+      '岳国栋', //
+      '杨镇源', //
+      '乔郭霞', //
+      '厉军', //
+      '李扬', //
+      '高帅', //
+      '张子麟', //
+      '巩鑫冉', //
+      '朱文艳', //
+      '张洁', //
+      '黄荣', //
       // '', // 童严秋
-      '', // 叶婷婷
+      '叶婷婷', //
     ];
+
+    const kfArr = [
+      ['岳国栋', '朱文艳', '厉军'],
+      ['陈琳', '巩鑫冉', '乔郭霞'],
+      ['杨镇源', '李扬', '黄荣'],
+      ['高帅', '张洁', '叶婷婷'],
+    ];
+
+    const kfGroupArr: any = [];
+
+    kfArr.map((item) => {
+      for (let index = 0; index < 7; index++) {
+        kfGroupArr.push(item);
+      }
+      return item;
+    });
+
+    console.log(kfGroupArr);
 
     const day = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-04-27'), 'days');
 
@@ -111,10 +166,14 @@ const Duty = () => {
 
     const catDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-07-15'), 'days');
 
+    const kfDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-11-14'), 'days');
+
     if (day >= 0) {
       const idx = day % nightArr.length;
 
       const wcIdx = wcDay % wcArr.length;
+
+      const kfIdx = kfDay % kfGroupArr.length;
 
       const catIdx = catDay % catArr.length;
 
@@ -143,7 +202,7 @@ const Duty = () => {
 
       return (
         <div style={{ textAlign: 'right' }}>
-          <Avatar.Group>
+          <Avatar.Group maxCount={4}>
             {!selectedName || (selectedName && nightArr[idx] === selectedName) ? (
               <Tooltip title="晚上值班" placement="top">
                 <Avatar size="large" style={{ backgroundColor: '#464646' }}>
@@ -151,7 +210,6 @@ const Duty = () => {
                 </Avatar>
               </Tooltip>
             ) : undefined}
-
             {wcArr[wcIdx] &&
             wcDay >= 0 &&
             (!selectedName || (selectedName && wcArr[wcIdx] === selectedName)) ? (
@@ -161,7 +219,6 @@ const Duty = () => {
                 </Avatar>
               </Tooltip>
             ) : undefined}
-
             {catArr[catIdx] &&
             catDay >= 0 &&
             (!selectedName || (selectedName && catArr[catIdx] === selectedName)) ? (
@@ -171,6 +228,17 @@ const Duty = () => {
                 </Avatar>
               </Tooltip>
             ) : undefined}
+            {kfGroupArr[kfIdx] &&
+              kfDay >= 0 &&
+              kfGroupArr[kfIdx].map((kfitem: string) =>
+                !selectedName || (selectedName && kfitem === selectedName) ? (
+                  <Tooltip title="晚班" placement="top">
+                    <Avatar size="large" style={{ backgroundColor: '#3f51b5' }}>
+                      {kfitem}
+                    </Avatar>
+                  </Tooltip>
+                ) : undefined,
+              )}
           </Avatar.Group>
         </div>
       );
@@ -193,7 +261,7 @@ const Duty = () => {
             }
           >
             <Select.Option value="">全部值班人员</Select.Option>
-            {nightArr.map((item) => (
+            {allArr.map((item) => (
               <Select.Option value={item}>{item}</Select.Option>
             ))}
           </Select>

@@ -89,3 +89,9 @@ export async function getYSUpData(args: string) {
     method: 'GET',
   });
 }
+
+export async function getImagesData(page: number) {
+  return request(`https://www.ccy.moe/wp-json/wp/v2/posts?page=${page}&categories=4725`, {
+    method: 'GET',
+  });
+}

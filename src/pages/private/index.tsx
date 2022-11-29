@@ -16,6 +16,8 @@ const Images = () => {
   };
 
   const onPullClick = async () => {
+    setImages([]);
+
     const randomMax = 500;
 
     const randomIndex = Math.floor(Math.random() * randomMax) + 1;

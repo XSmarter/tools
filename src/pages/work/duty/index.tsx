@@ -164,7 +164,7 @@ const Duty = () => {
 
     const wcDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-11-11'), 'days');
 
-    const catDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-07-15'), 'days');
+    const catDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-11-29'), 'days');
 
     const kfDay = moment(moment(date).format('YYYY-MM-DD')).diff(moment('2022-11-14'), 'days');
 
@@ -177,7 +177,7 @@ const Duty = () => {
 
       const catIdx = catDay % catArr.length;
 
-      const loopTime = Math.floor(catDay / catArr.length) - 1;
+      const loopTime = Math.floor(catDay / catArr.length) - 1 + 6;
 
       const catChangeShit = !((catDay - loopTime) % 7);
 

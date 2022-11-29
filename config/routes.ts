@@ -107,7 +107,6 @@ export default [
     ],
   },
   { path: '/settings', name: '设置', icon: 'setting', component: './settings' },
-  { path: '/private', name: '图片', icon: 'setting', component: './private' },
   { path: '/', redirect: '/home' },
   { component: './404' },
 ];

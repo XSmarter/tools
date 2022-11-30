@@ -114,6 +114,56 @@ const categoryData = [
     category: 'Taste',
     max: 30,
   },
+  {
+    cid: 10,
+    category: 'Cosplay',
+    max: 7431,
+  },
+  {
+    cid: 4760,
+    category: 'Kela',
+    max: 318,
+  },
+  {
+    cid: 2425,
+    category: 'Wmns',
+    max: 1194,
+  },
+  {
+    cid: 4757,
+    category: 'Mtcos',
+    max: 543,
+  },
+  {
+    cid: 4750,
+    category: 'Toutiao',
+    max: 908,
+  },
+  {
+    cid: 4752,
+    category: 'Ugirls',
+    max: 475,
+  },
+  {
+    cid: 4758,
+    category: 'Youmei',
+    max: 789,
+  },
+  {
+    cid: 2428,
+    category: 'Xgmn',
+    max: 3820,
+  },
+  {
+    cid: 4753,
+    category: 'Tgod',
+    max: 551,
+  },
+  {
+    cid: 4755,
+    category: 'Aiyouwu',
+    max: 1839,
+  },
 ];
 
 export default categoryData;

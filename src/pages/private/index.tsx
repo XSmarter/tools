@@ -1,6 +1,8 @@
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Card, Image } from 'antd';
+import { Card, Image } from 'antd';
 import { useState } from 'react';
+import Search from './components/SearchForm';
+import categoryData from './data';
 
 const Images = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -15,25 +17,34 @@ const Images = () => {
     return tempImages;
   };
 
-  const onPullClick = async () => {
+  const onPullClick = async (values: any) => {
     setImages([]);
 
-    const randomMax = 500;
+    const tempidx = values.index || 0;
+
+    const findCategory = categoryData.find((item) => item.cid == values.category);
+
+    const randomMax = (findCategory && findCategory.max) || 500;
 
     const randomIndex = Math.floor(Math.random() * randomMax) + 1;
 
-    const page = Math.ceil(randomIndex / 10);
+    const page = Math.ceil((tempidx || randomIndex) / 10);
 
     const data = await fetch(
-      `https://www.ccy.moe/wp-json/wp/v2/posts?page=${page}&categories=4725`,
+      `https://www.ccy.moe/wp-json/wp/v2/posts?page=${page}&categories=${values.category}`,
     );
 
     const res = await data.json();
 
-    // getImagesData(page).then(async (res) => {
-    const index = randomIndex % 10;
+    if (res.code) {
+      return;
+    }
 
-    const content = res[index].content;
+    // getImagesData(page).then(async (res) => {
+    // const index = randomIndex % 10;
+    const index = tempidx ? tempidx % 10 : randomIndex % 10;
+
+    const content = res && res.length && res[index].content;
 
     const tempImages = getImages(content.rendered);
 
@@ -59,7 +70,7 @@ const Images = () => {
   return (
     <PageContainer breadcrumb={undefined}>
       <Card>
-        <Button onClick={onPullClick}>Pull</Button>
+        <Search data={categoryData} onSearch={onPullClick} />
 
         <div style={{ marginTop: '15px' }}>
           <Image.PreviewGroup>

@@ -70,6 +70,12 @@ export default [
         component: './tools/tinyimg',
       },
       {
+        path: '/tools/analyze',
+        name: '链接解析',
+        icon: 'slack',
+        component: './tools/analyze',
+      },
+      {
         path: '/tools/endecode',
         name: '信息编码',
         icon: 'translation',
@@ -92,12 +98,6 @@ export default [
         name: '嘌呤查询',
         icon: 'search',
         component: './tools/purine',
-      },
-      {
-        path: '/tools/speedtest',
-        name: '网络测速',
-        icon: 'send',
-        component: './tools/speedtest',
       },
       // {
       //   path: '/tools/ys',

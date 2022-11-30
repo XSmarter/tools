@@ -3,7 +3,7 @@ import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
 // import { history } from 'umi';
 import RightContent from '@/components/RightContent';
-import HeaderContent from './components/HeaderContent';
+// import HeaderContent from './components/HeaderContent';
 // import Footer from '@/components/Footer';
 // import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 // import { BookOutlined, LinkOutlined } from '@ant-design/icons';
@@ -106,10 +106,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     // },
     appList: [
       {
-        icon: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
-        title: 'Ant Design',
-        desc: '杭州市较知名的 UI 设计语言',
-        url: 'https://ant.design',
+        icon: 'https://tools.pdf24.org/static/img/pageIcons/svg/compress-pdf.svg?v=5ca75609',
+        title: 'PDF工具',
+        desc: '提供很多精心裁剪的针对特定问题的PDF工具',
+        url: 'https://tools.pdf24.org/zh/all-tools',
       },
       {
         icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
@@ -161,7 +161,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       if (_.isMobile) return defaultDom;
       return (
         <>
-          <HeaderContent />
+          {/* <HeaderContent /> */}
           {defaultDom}
         </>
       );
